@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    client = OpenAI::Client.new(access_token: "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")
+    client = OpenAI::Client.new(access_token: "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")
     response = client.images.generate(parameters: { prompt: "A baby sea otter cooking pasta wearing a hat of some sort", size: "256x256" })
     @item = Item.new(item_params)
     @item.user = current_user
@@ -60,6 +60,7 @@ class ItemsController < ApplicationController
       @item.image = response.dig("data", 0, "url")
       @item.save!
     end
+    byebug
     if @item.save
       sendEvent("item_created", { item: item_params })
       render :show
