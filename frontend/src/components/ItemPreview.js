@@ -40,6 +40,10 @@ const ItemPreview = (props) => {
         src={item.image}
         className="card-img-top item-img"
         style={{ borderRadius: "20px" }}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src="/placeholder.png";
+        }}
       />
       <div className="card-body">
         <Link to={`/item/${item.slug}`} className="text-white">
@@ -62,5 +66,6 @@ const ItemPreview = (props) => {
     </div>
   );
 };
+//test
 
 export default connect(() => ({}), mapDispatchToProps)(ItemPreview);
